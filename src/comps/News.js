@@ -23,7 +23,7 @@ const News = (props) => {
     setLoading(true);
     props.setProgress(50);
     let data = await fetch(url);
-    let parsedData = await data.json()
+    let parsedData = await data.json();
     props.setProgress(70);
     setPage(page + 1);
     setArticles(parsedData.articles);
@@ -57,13 +57,13 @@ const News = (props) => {
     setTotalResults(parsedData.totalResults);
   };
 
-  const { pageSize, country, category, mode } = props;
+  const { pageSize, country, category } = props;
   return (
     <div style={{ margin: 'auto auto' }}>
       <h2 className="text-center" style={{ margin: '75px 50px 18px 0', color: props.mode === 'light' ? '#101010' : 'white' }}>MyMonkey - Top {props.category} Headlines</h2>
       {loading && <Spinner />}
       <InfiniteScroll
-        dataLength={articles.length}
+        dataLength={articles.length != 0 ? articles.length : 0}
         next={fetchMoreData}
         hasMore={articles.length < totalResults}
         loader={<Spinner />}
